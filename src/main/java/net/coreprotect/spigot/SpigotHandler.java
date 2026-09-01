@@ -11,6 +11,7 @@ import org.bukkit.entity.Villager;
 
 import net.coreprotect.config.Config;
 import net.coreprotect.model.entity.VillagerReputationData;
+import net.coreprotect.paper.PaperAdapter;
 import net.coreprotect.utility.Chat;
 import net.coreprotect.utility.Color;
 import net.coreprotect.utility.StringUtils;
@@ -95,6 +96,10 @@ public class SpigotHandler extends SpigotAdapter implements SpigotInterface {
 
     @Override
     public void sendComponent(CommandSender sender, String string, String bypass) {
+        if (string.contains(Chat.COMPONENT_TAG_OPEN + Chat.COMPONENT_ITEM) && PaperAdapter.ADAPTER.sendItemComponent(sender, string, bypass)) {
+            return;
+        }
+
         TextComponent message = new TextComponent();
         StringBuilder builder = new StringBuilder();
 
@@ -110,7 +115,7 @@ public class SpigotHandler extends SpigotAdapter implements SpigotInterface {
                     addBuilder(message, builder);
                 }
 
-                String[] data = value.split("\\|", 3);
+                String[] data = value.split("\\|", 4);
                 if (data[0].equals(Chat.COMPONENT_COMMAND)) {
                     TextComponent component = new TextComponent(TextComponent.fromLegacyText(data[2]));
                     component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, data[1]));
@@ -119,6 +124,9 @@ public class SpigotHandler extends SpigotAdapter implements SpigotInterface {
                 }
                 else if (data[0].equals(Chat.COMPONENT_POPUP)) {
                     SpigotAdapter.ADAPTER.addHoverComponent(message, data);
+                }
+                else if (data[0].equals(Chat.COMPONENT_ITEM) && data.length == 4) {
+                    SpigotAdapter.ADAPTER.addHoverComponent(message, new String[] { Chat.COMPONENT_POPUP, data[2], data[3] });
                 }
             }
             else {

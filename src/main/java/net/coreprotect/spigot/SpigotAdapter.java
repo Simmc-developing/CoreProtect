@@ -56,9 +56,9 @@ public class SpigotAdapter implements SpigotInterface {
         while (matcher.find()) {
             String value = matcher.group(1);
             if (value != null) {
-                String[] data = value.split("\\|", 3);
-                if (data[0].equals(Chat.COMPONENT_COMMAND) || data[0].equals(Chat.COMPONENT_POPUP)) {
-                    message.append(data[2]);
+                String[] data = value.split("\\|", 4);
+                if (data[0].equals(Chat.COMPONENT_COMMAND) || data[0].equals(Chat.COMPONENT_POPUP) || data[0].equals(Chat.COMPONENT_ITEM)) {
+                    message.append(data[data.length - 1]);
                 }
             }
             else {

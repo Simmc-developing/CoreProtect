@@ -12,6 +12,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.block.Skull;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Villager;
@@ -188,6 +189,11 @@ public class PaperAdapter implements PaperInterface {
 
     @Override
     public void setMerchantRecipeMeta(MerchantRecipe recipe, List<?> recipeData) {
+    }
+
+    @Override
+    public boolean sendItemComponent(CommandSender sender, String string, String bypass) {
+        return false;
     }
 
 }

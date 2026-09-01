@@ -160,6 +160,7 @@ public class ChestTransactionLookup {
                 int resultZ = results.getInt("z");
                 byte[] resultMetadata = DatabaseUtils.getBytes(results, "metadata");
                 String tooltip = ItemUtils.getEnchantments(resultMetadata, resultType, resultAmount);
+                Integer itemId = ItemUtils.makeGivableItem(ItemUtils.getItemStack(resultMetadata, resultType, resultAmount));
 
                 String resultUser = UserStatement.getName(statement.getConnection(), resultUserId);
                 String timeAgo = ChatUtils.getTimeSince(resultTime, time, true);
@@ -190,7 +191,7 @@ public class ChestTransactionLookup {
                 if (entitySpawnRowId != null && (displayWorldId != resultWorldId || displayX != resultX || displayY != resultY || displayZ != resultZ)) {
                     coordinateInfo = ChatUtils.getCoordinateTooltip(resultWorldId, resultX, resultY, resultZ, Phrase.build(Phrase.LOOKUP_ENTITY_ORIGIN), true);
                 }
-                result.add(timeAgo + " " + tag + " " + Phrase.build(Phrase.LOOKUP_CONTAINER, Color.DARK_AQUA + rbFormat + resultUser + Color.WHITE + rbFormat, "x" + resultAmount, ChatUtils.createTooltip(Color.DARK_AQUA + rbFormat + target, tooltip) + coordinateInfo + Color.WHITE, selector));
+                result.add(timeAgo + " " + tag + " " + Phrase.build(Phrase.LOOKUP_CONTAINER, Color.DARK_AQUA + rbFormat + resultUser + Color.WHITE + rbFormat, "x" + resultAmount, ChatUtils.createItemTooltip(Color.DARK_AQUA + rbFormat + target, tooltip, itemId) + coordinateInfo + Color.WHITE, selector));
                 PluginChannelListener.getInstance().sendData(commandSender, resultTime, Phrase.LOOKUP_CONTAINER, selector, resultUser, target, resultAmount, displayX, displayY, displayZ, displayWorldId, rbFormat, true, tag.contains("+"));
             }
             results.close();

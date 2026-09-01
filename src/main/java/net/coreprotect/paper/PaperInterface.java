@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.block.Skull;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Villager;
@@ -64,5 +65,7 @@ public interface PaperInterface {
     public void addMerchantRecipeMeta(MerchantRecipe recipe, List<Object> recipeData);
 
     public void setMerchantRecipeMeta(MerchantRecipe recipe, List<?> recipeData);
+
+    public boolean sendItemComponent(CommandSender sender, String string, String bypass);
 
 }

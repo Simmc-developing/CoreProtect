@@ -16,6 +16,7 @@ public final class Chat {
     public static final String COMPONENT_TAG_OPEN = "<COMPONENT>";
     public static final String COMPONENT_TAG_CLOSE = "</COMPONENT>";
     public static final String COMPONENT_COMMAND = "COMMAND";
+    public static final String COMPONENT_ITEM = "ITEM";
     public static final String COMPONENT_POPUP = "POPUP";
     public static final String COMPONENT_PIPE = "<PIPE/>";
 

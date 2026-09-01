@@ -191,6 +191,18 @@ public class ChatUtils {
         return message.append(Chat.COMPONENT_TAG_CLOSE).toString();
     }
 
+    public static String createItemTooltip(String phrase, String tooltip, Integer itemId) {
+        if (itemId == null) {
+            return createTooltip(phrase, tooltip);
+        }
+
+        StringBuilder message = new StringBuilder(Chat.COMPONENT_TAG_OPEN + Chat.COMPONENT_ITEM);
+        message.append("|" + itemId + "|");
+        message.append(tooltip.replace("|", Chat.COMPONENT_PIPE) + "|");
+        message.append(phrase);
+        return message.append(Chat.COMPONENT_TAG_CLOSE).toString();
+    }
+
     public static String createGiveItemComponent(String phrase, String command, Integer itemId) {
         if (itemId == null) {
             return "";
